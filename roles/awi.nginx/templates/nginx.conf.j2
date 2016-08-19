@@ -1,0 +1,11 @@
+user {{ nginx_user }};
+
+error_log {{ nginx_error_log }};
+pid       {{ nginx_pidfile }};
+
+worker_processes {{ nginx_worker_processes }};
+
+events {
+    worker_connections {{ nginx_worker_connections }};
+    multi_accept {{ nginx_multi_accept }};
+}

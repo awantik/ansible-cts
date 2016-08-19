@@ -1,0 +1,4 @@
+---
+  - hosts: 192*
+    roles:
+      - bennojoy.mysql

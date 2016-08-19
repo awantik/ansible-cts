@@ -1,0 +1,5 @@
+- name: Nginx
+  hosts: localhost 
+  sudo: yes
+  roles:
+    - awi.nginx

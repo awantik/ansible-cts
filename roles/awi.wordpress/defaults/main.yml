@@ -1,0 +1,17 @@
+---
+wp_version: 4.0
+wp_install_dir: '/var/sites/wordpress_site'
+wp_db_name: 'mydb'
+wp_db_user: 'skillspeed'
+wp_db_password: 'cts'
+wp_db_host: '192.168.75.131'
+wp_db_charset: 'utf8'
+wp_table_prefix: 'wp_'
+wp_debug: false
+wp_lang: ''
+wp_mysql_enable: true
+wp_mysql_db_create: true
+wp_mysql_site_restore_saved_db: false
+wp_backup_local_path: "{{ playbook_dir }}/_private/backup"
+wp_database_backup: "{{ wp_backup_local_path }}/{{ wp_site_name }}.sql"
+wp_site_name: "{{ wp_apache_hostname | default('skillspeed.com') }}"

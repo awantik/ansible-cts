@@ -1,0 +1,5 @@
+- name: Hadoop
+  hosts: localhost
+  sudo: yes
+  roles:
+    - hadoop-ansible

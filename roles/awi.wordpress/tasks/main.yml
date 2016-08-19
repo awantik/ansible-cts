@@ -1,0 +1,31 @@
+---
+#- name: Wordpress - Create site database
+#  include: mysql.yml
+#  when: wp_mysql_enable
+
+- name: Wordpress - Ensure presence of installation directory
+  file: path={{wp_install_dir|dirname}} state=directory
+
+- name: Download {{wp_version}} to /tmp
+  get_url: url=http://wordpress.org/wordpress-{{wp_version}}.tar.gz force=no dest=/tmp/wordpress-{{wp_version}}.tar.gz
+
+- name: Extract Archive
+  unarchive: src=/tmp/wordpress-{{wp_version}}.tar.gz dest=/tmp copy=no
+
+- name: Move extracted dir to {{wp_install_dir}}
+  command: /bin/mv /tmp/wordpress {{wp_install_dir}} creates={{wp_install_dir}}
+
+- name: Wordpress | Fetch random salts for wp_config.php
+  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+  sudo: no
+  register: 'wp_salt'
+
+- name: Wordpress | Copy wp-config.php file
+  template: src=wp-config.php.j2 dest={{wp_install_dir}}/wp-config.php
+
+- name: Wordpress | Change onwership of installation dir
+  file: path={{wp_install_dir}} owner=www-data group=www-data mode=775 state=directory recurse=yes
+
+- name: Wordpress | Change ownership of wp-content directory
+  file: path={{wp_install_dir}}/wp-content/ owner=www-data mode=755 state=directory recurse=yes
+

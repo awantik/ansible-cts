@@ -1,0 +1,5 @@
+- name: Jenkins
+  hosts: localhost
+  sudo: yes
+  roles:
+    - ansible-role-mongodb
