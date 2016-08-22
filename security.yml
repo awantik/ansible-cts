@@ -1,0 +1,5 @@
+- name: Security
+  hosts: localhost
+  sudo: yes
+  roles:
+    - awi.security
